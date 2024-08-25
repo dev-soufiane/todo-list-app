@@ -1,10 +1,13 @@
+// Import required modules
 const express = require('express');
 const path = require('path');
 const db = require('./database');
 
+// Initialize Express app
 const app = express();
 const PORT = 3000;
 
+// Middleware setup
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
