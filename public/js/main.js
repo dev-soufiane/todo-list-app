@@ -3,14 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const todoInput = document.getElementById('todo-input');
     const todoList = document.getElementById('todo-list');
   
-    // Load todos
+    // Load todos from the server when the page loads
     fetch('/api/todos')
       .then(response => response.json())
       .then(todos => {
         todos.forEach(todo => addTodoToList(todo));
       });
   
-    // Add todo
+    // Handle the form submission to add a new todo
     todoForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const title = todoInput.value.trim();
@@ -29,7 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
           });
       }
     });
-  
+    
+    // Function to add a todo item to the list
     function addTodoToList(todo) {
       const li = document.createElement('li');
       li.innerHTML = `
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       todoList.appendChild(li);
   
+     // Handle the delete button click to remove the todo	    
       li.querySelector('.delete-btn').addEventListener('click', () => {
         fetch(`/api/todos/${todo.id}`, { method: 'DELETE' })
           .then(() => li.remove());
